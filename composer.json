@@ -1,0 +1,51 @@
+{
+    "name": "jobmetric/laravel-form",
+    "description": "A package for creating generic forms that allows you to create all kinds of forms in your application in code.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "jobmetric",
+        "package",
+        "form",
+        "builder",
+        "formbuilder",
+        "custom fields",
+        "custom form",
+        "form generator",
+        "form creator",
+        "form manager"
+    ],
+    "homepage": "https://doc.jobmetric.net/package/laravel-form",
+    "authors": [
+        {
+            "name": "Majid Mohammadian",
+            "email": "majeedmohammadian@gmail.com",
+            "homepage": "https://www.linkedin.com/in/majidmohammadian/",
+            "role": "Full Stack Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.0.1",
+        "laravel/framework": ">=9.19",
+        "jobmetric/laravel-package-core": "^1.18.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "JobMetric\\Form\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "JobMetric\\Form\\FormServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "support": {
+        "issues": "https://github.com/jobmetric/laravel-form/issues",
+        "forum": "https://twitter.com/jobmetric",
+        "source": "https://github.com/jobmetric/laravel-form"
+    }
+}
