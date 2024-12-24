@@ -4,6 +4,7 @@ namespace JobMetric\Form;
 
 use Closure;
 use Illuminate\Support\Collection;
+use InvalidArgumentException;
 use Throwable;
 
 /**
@@ -30,10 +31,14 @@ trait FormServiceType
      */
     public function form(Closure|array $callable): static
     {
+        if (isset($this->form[$this->type])) {
+            throw new InvalidArgumentException('Form already exists for this type.');
+        }
+
         if ($callable instanceof Closure) {
             $callable($builder = new FormBuilder);
 
-            $this->form[$this->type][] = $builder->build();
+            $this->form[$this->type] = $builder->build();
         } else {
             foreach ($callable as $form) {
                 $builder = new FormBuilder;
@@ -53,13 +58,26 @@ trait FormServiceType
                     $builder->novalidate();
                 }
 
+                $builder->class($form['class'] ?? 'form d-flex flex-column flex-lg-row');
+                $builder->id($form['id'] ?? 'form');
+
+                if (isset($form['removeCsrf']) && $form['removeCsrf'] === true) {
+                    $builder->removeCsrf();
+                }
+
+                if (isset($form['hiddenCustomFields'])) {
+                    foreach ($form['hiddenCustomFields'] as $hiddenCustomField) {
+                        $builder->hiddenCustomField($hiddenCustomField);
+                    }
+                }
+
                 if (isset($form['tabs'])) {
                     foreach ($form['tabs'] as $tab) {
                         $builder->tab($tab);
                     }
                 }
 
-                $this->form[$this->type][] = $builder->build();
+                $this->form[$this->type] = $builder->build();
             }
         }
 
@@ -71,12 +89,30 @@ trait FormServiceType
     /**
      * Get form.
      *
-     * @return Collection
+     * @return Form|null
      */
-    public function getForm(): Collection
+    public function getForm(): ?Form
     {
         $form = $this->getTypeParam('form', []);
 
-        return collect($form[$this->type] ?? []);
+        return $form[$this->type] ?? null;
+    }
+
+    /**
+     * Get form custom fields.
+     *
+     * @return Collection
+     */
+    public function getFormCustomFields(): Collection
+    {
+        $form = $this->getTypeParam('form', []);
+
+        $data = collect();
+
+        if (isset($form[$this->type])) {
+            return collect($form[$this->type]->getAllCustomFields());
+        }
+
+        return $data;
     }
 }
