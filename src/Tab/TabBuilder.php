@@ -13,6 +13,13 @@ class TabBuilder
     use Macroable;
 
     /**
+     * Attribute id
+     *
+     * @var string $id
+     */
+    public string $id;
+
+    /**
      * Attribute label
      *
      * @var string $label
@@ -27,11 +34,39 @@ class TabBuilder
     public string|null $description = null;
 
     /**
+     * Attribute position
+     *
+     * @var string $position
+     */
+    public string $position = 'start';
+
+    /**
+     * Attribute selected
+     *
+     * @var bool $selected
+     */
+    public bool $selected = false;
+
+    /**
      * Fields within the tab
      *
      * @var array $fields
      */
     public array $fields = [];
+
+    /**
+     * set the id of the tab
+     *
+     * @param string $id
+     *
+     * @return static
+     */
+    public function id(string $id): static
+    {
+        $this->id = 'tab-' . $id;
+
+        return $this;
+    }
 
     /**
      * set the label of the tab
@@ -57,6 +92,42 @@ class TabBuilder
     public function description(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * set the start position of the tab
+     *
+     * @return static
+     */
+    public function startPosition(): static
+    {
+        $this->position = 'start';
+
+        return $this;
+    }
+
+    /**
+     * set the end position of the tab
+     *
+     * @return static
+     */
+    public function endPosition(): static
+    {
+        $this->position = 'end';
+
+        return $this;
+    }
+
+    /**
+     * selected tab
+     *
+     * @return static
+     */
+    public function selected(): static
+    {
+        $this->selected = true;
 
         return $this;
     }
@@ -120,10 +191,14 @@ class TabBuilder
      */
     public function build(): Tab
     {
+        if (empty($this->id)) {
+            throw new InvalidArgumentException('Tab id is required');
+        }
+
         if (empty($this->label)) {
             throw new InvalidArgumentException('Tab label is required');
         }
 
-        return new Tab($this->label, $this->description, $this->fields);
+        return new Tab($this->id, $this->label, $this->description, $this->position, $this->selected, $this->fields);
     }
 }
