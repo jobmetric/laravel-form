@@ -5,6 +5,8 @@ namespace JobMetric\Form;
 use Closure;
 use Illuminate\Support\Traits\Macroable;
 use InvalidArgumentException;
+use JobMetric\CustomField\CustomField;
+use JobMetric\CustomField\CustomFieldBuilder;
 use JobMetric\Form\Tab\Tab;
 use JobMetric\Form\Tab\TabBuilder;
 
@@ -15,9 +17,9 @@ class FormBuilder
     /**
      * Attribute action
      *
-     * @var string $action
+     * @var string|null $action
      */
-    public string $action;
+    public ?string $action = null;
 
     /**
      * Attribute method
@@ -31,7 +33,7 @@ class FormBuilder
      *
      * @var string $name
      */
-    public string $name = '';
+    public string $name = 'form';
 
     /**
      * Attribute enctype
@@ -60,6 +62,34 @@ class FormBuilder
      * @var bool $novalidate
      */
     public bool $novalidate = false;
+
+    /**
+     * Attribute class
+     *
+     * @var string $class
+     */
+    public string $class = 'form d-flex flex-column flex-lg-row';
+
+    /**
+     * Attribute id
+     *
+     * @var string $id
+     */
+    public string $id = 'form';
+
+    /**
+     * Attribute csrf
+     *
+     * @var bool $csrf
+     */
+    public bool $csrf = true;
+
+    /**
+     * The hidden custom field instance.
+     *
+     * @var CustomField[] $hiddenCustomField
+     */
+    protected array $hiddenCustomField = [];
 
     /**
      * Tabs within the form
@@ -171,6 +201,62 @@ class FormBuilder
     }
 
     /**
+     * set the class of the form
+     *
+     * @param string $class
+     *
+     * @return static
+     */
+    public function class(string $class): static
+    {
+        $this->class = $class;
+
+        return $this;
+    }
+
+    /**
+     * set the id of the form
+     *
+     * @param string $id
+     *
+     * @return static
+     */
+    public function id(string $id): static
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * unset the csrf of the form
+     *
+     * @return static
+     */
+    public function removeCsrf(): static
+    {
+        $this->csrf = false;
+
+        return $this;
+    }
+
+    /**
+     * Add a hidden custom field to the form
+     *
+     * @param Closure<CustomFieldBuilder>|array $callable
+     *
+     * @return static
+     */
+    public function hiddenCustomField(Closure|array $callable): static
+    {
+        $callable($builder = new CustomFieldBuilder);
+
+        $this->hiddenCustomField[] = $builder->build();
+
+        return $this;
+    }
+
+    /**
      * Add a tab to the form
      *
      * @param Closure<TabBuilder>|array $callable
@@ -227,6 +313,10 @@ class FormBuilder
             $this->autocomplete,
             $this->target,
             $this->novalidate,
+            $this->class,
+            $this->id,
+            $this->csrf,
+            $this->hiddenCustomField,
             $this->tabs
         );
     }
