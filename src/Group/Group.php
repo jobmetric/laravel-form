@@ -3,6 +3,7 @@
 namespace JobMetric\Form\Group;
 
 use JobMetric\CustomField\CustomField;
+use Throwable;
 
 class Group
 {
@@ -32,5 +33,21 @@ class Group
         $this->label = $label;
         $this->description = $description;
         $this->customFields = $customFields;
+    }
+
+    /**
+     * render the group as HTML
+     *
+     * @param array $values
+     *
+     * @return string
+     * @throws Throwable
+     */
+    public function render(array $values = []): string
+    {
+        return view('form::group', [
+            'field' => $this,
+            'values' => $values,
+        ])->render();
     }
 }
