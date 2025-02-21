@@ -12,10 +12,6 @@ return [
     |
     */
 
-    'validation' => [
-        'errors' => 'Validation errors occurred.',
-    ],
-
     'exceptions' => [
         'option_empty_label' => 'Option label cannot be empty.',
     ],

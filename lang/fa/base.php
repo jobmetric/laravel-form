@@ -12,10 +12,6 @@ return [
     |
     */
 
-    'validation' => [
-        'errors' => 'خطاهای اعتبار سنجی رخ داده است.',
-    ],
-
     'exceptions' => [
         'option_empty_label' => 'برچسب گزینه نمی تواند خالی باشد.',
     ],
