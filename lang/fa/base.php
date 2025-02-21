@@ -13,7 +13,7 @@ return [
     */
 
     'exceptions' => [
-        'option_empty_label' => 'Option label cannot be empty.',
+        'option_empty_label' => 'برچسب گزینه نمی تواند خالی باشد.',
     ],
 
     'messages' => [
