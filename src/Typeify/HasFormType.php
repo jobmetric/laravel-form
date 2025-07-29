@@ -1,18 +1,20 @@
 <?php
 
-namespace JobMetric\Form;
+namespace JobMetric\Form\Typeify;
 
 use Closure;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
+use JobMetric\Form\Form;
+use JobMetric\Form\FormBuilder;
 use Throwable;
 
 /**
- * Trait FormServiceType
+ * Trait HasFormType
  *
  * @package JobMetric\Form
  */
-trait FormServiceType
+trait HasFormType
 {
     /**
      * The form attributes.
