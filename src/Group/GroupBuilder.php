@@ -7,6 +7,7 @@ use Illuminate\Support\Traits\Macroable;
 use InvalidArgumentException;
 use JobMetric\CustomField\CustomField;
 use JobMetric\CustomField\CustomFieldBuilder;
+use Throwable;
 
 class GroupBuilder
 {
@@ -81,6 +82,7 @@ class GroupBuilder
      * Build the group
      *
      * @return Group
+     * @throws Throwable
      */
     public function build(): Group
     {

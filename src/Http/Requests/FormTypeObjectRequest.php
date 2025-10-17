@@ -9,7 +9,12 @@ use Throwable;
 trait FormTypeObjectRequest
 {
     /**
-     * @throws Throwable
+     * Populate validation rules base on form custom fields
+     *
+     * @param array<string, mixed> $rules Reference to rules array to be filled
+     * @param Form|null $form The form instance
+     *
+     * @return void
      */
     public function renderFormFiled(array &$rules, Form|null $form): void
     {
@@ -28,7 +33,12 @@ trait FormTypeObjectRequest
     }
 
     /**
-     * @throws Throwable
+     * Populate attribute names based on form custom fields
+     *
+     * @param array<string, string> $params Reference to attributes map to be filled
+     * @param Form|null $form The form instance
+     *
+     * @return void
      */
     public function renderFormAttribute(array &$params, Form|null $form): void
     {

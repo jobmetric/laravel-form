@@ -54,7 +54,11 @@ class Group
     /**
      * Convert group definition to array for API output
      *
-     * @return array
+     * @return array{
+     *     label: string,
+     *     description: string|null,
+     *     customFields: array<int, array{label: mixed, params: array, validation: mixed}>
+     * }
      */
     public function toArray(): array
     {

@@ -125,8 +125,7 @@ class Form
     /**
      * Get All Custom Fields
      *
-     * @return array
-     * @throws Throwable
+     * @return CustomField[]
      */
     public function getAllCustomFields(): array
     {

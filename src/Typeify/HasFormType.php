@@ -5,9 +5,9 @@ namespace JobMetric\Form\Typeify;
 use Closure;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
+use JobMetric\CustomField\CustomField;
 use JobMetric\Form\Form;
 use JobMetric\Form\FormBuilder;
-use Throwable;
 
 /**
  * Trait HasFormType
@@ -17,9 +17,9 @@ use Throwable;
 trait HasFormType
 {
     /**
-     * The form attributes.
+     * The form instances per type key.
      *
-     * @var array $form
+     * @var array<string, Form> $form
      */
     protected array $form = [];
 
@@ -29,7 +29,6 @@ trait HasFormType
      * @param Closure<FormBuilder>|array $callable
      *
      * @return static
-     * @throws Throwable
      */
     public function form(Closure|array $callable): static
     {
@@ -103,7 +102,7 @@ trait HasFormType
     /**
      * Get form custom fields.
      *
-     * @return Collection
+     * @return Collection<int, CustomField>
      */
     public function getFormCustomFields(): Collection
     {

@@ -2,6 +2,7 @@
 
 namespace JobMetric\Form\Tab;
 
+use JobMetric\Form\Group\Group;
 use Throwable;
 
 class Tab
@@ -90,14 +91,21 @@ class Tab
     /**
      * Convert tab definition to array for API output
      *
-     * @return array
+     * @return array{
+     *     id: string,
+     *     label: string,
+     *     description: string|null,
+     *     position: string,
+     *     selected: bool,
+     *     fields: array<int, array{kind: 'group'|'custom_field', data: mixed}>
+     * }
      */
     public function toArray(): array
     {
         $fields = [];
 
         foreach ($this->fields ?? [] as $item) {
-            if ($item instanceof \JobMetric\Form\Group\Group) {
+            if ($item instanceof Group) {
                 $fields[] = [
                     'kind' => 'group',
                     'data' => $item->toArray(),

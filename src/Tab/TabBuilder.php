@@ -7,6 +7,7 @@ use Illuminate\Support\Traits\Macroable;
 use InvalidArgumentException;
 use JobMetric\CustomField\CustomFieldBuilder;
 use JobMetric\Form\Group\GroupBuilder;
+use Throwable;
 
 class TabBuilder
 {
@@ -138,6 +139,7 @@ class TabBuilder
      * @param Closure<GroupBuilder>|array $callable
      *
      * @return static
+     * @throws Throwable
      */
     public function group(Closure|array $callable): static
     {
@@ -188,6 +190,7 @@ class TabBuilder
      * Build the tab
      *
      * @return Tab
+     * @throws Throwable
      */
     public function build(): Tab
     {
