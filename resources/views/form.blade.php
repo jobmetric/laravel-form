@@ -8,7 +8,7 @@
     }
 @endphp
 
-<form method="{{ $method_theme }}" action="{{ $field->action }}" class="{{ $field->class }}" id="{{ $field->id }}">
+<form method="{{ $method_theme }}" action="{{ $field->action }}" class="{{ $field->class }}" id="{{ $field->id }}" name="{{ $field->name }}" enctype="{{ $field->enctype }}" target="{{ $field->target }}" autocomplete="{{ $field->autocomplete ? 'on' : 'off' }}" @if($field->novalidate) novalidate @endif>
     @if ($field->csrf)
         @csrf
     @endif
