@@ -1,4 +1,6 @@
 @php
+    use JobMetric\Form\Tab\Tab;
+
     $method = $field->method;
     $method_theme = 'POST';
     if (in_array(strtolower($method), ['get', 'post'])) {
@@ -19,12 +21,13 @@
 
     @if(!empty($field->tabs))
         <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10 mb-10">
-            <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2 d-flex justify-content-between align-items-center" role="tablist">
+            <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2 d-flex justify-content-between align-items-center"
+                role="tablist">
                 <div class="d-flex">
                     @foreach($field->tabs as $tab)
                         @php
                             /**
-                             * @var \JobMetric\Form\Tab\Tab $tab
+                             * @var Tab $tab
                              */
                         @endphp
                         @if($tab->position == 'start')
@@ -36,7 +39,7 @@
                     @foreach($field->tabs as $tab)
                         @php
                             /**
-                             * @var \JobMetric\Form\Tab\Tab $tab
+                             * @var Tab $tab
                              */
                         @endphp
                         @if($tab->position == 'end')
@@ -49,7 +52,7 @@
                 @foreach($field->tabs as $tab)
                     @php
                         /**
-                         * @var \JobMetric\Form\Tab\Tab $tab
+                         * @var Tab $tab
                          */
                     @endphp
                     {!! $tab->renderData($values) !!}

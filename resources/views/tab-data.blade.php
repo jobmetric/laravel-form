@@ -1,3 +1,7 @@
+@php
+    use JobMetric\CustomField\CustomField;
+    use JobMetric\Form\Group\Group;
+@endphp
 <div class="tab-pane fade @if($field->selected) show active @endif" id="{{ $field->id }}" role="tabpanel">
     <div class="d-flex flex-column gap-7 gap-lg-10">
         <div class="card card-flush py-4">
@@ -14,12 +18,12 @@
                         $count = count($field->fields);
                     @endphp
                     @foreach($field->fields as $index => $fieldData)
-                        @if($fieldData instanceof \JobMetric\Form\Group\Group)
+                        @if($fieldData instanceof Group)
                             {!! $fieldData->render($values) !!}
                         @else
                             @php
                                 /**
-                                 * @var \JobMetric\CustomField\CustomField $fieldData
+                                 * @var CustomField $fieldData
                                  */
                                 $classParent = 'mb-10';
                                 if ($index == $count - 1) {
@@ -27,7 +31,7 @@
                                 }
                                 $value = $values[$fieldData->params['name']] ?? null;
                             @endphp
-                            {!! $fieldData->render($value, classParent: $classParent, hasErrorTagForm: true) !!}
+                            {!! $fieldData->toHtml($value, classParent: $classParent, hasErrorTagForm: true) !!}
                         @endif
                     @endforeach
                 </div>
