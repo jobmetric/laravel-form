@@ -29,7 +29,17 @@ composer require jobmetric/laravel-form
 
 ## Documentation
 
-`coming soon`
+Full documentation with many examples lives in the `docs` folder:
+
+- [Overview](docs/overview.md)
+- [Quick Start](docs/quickstart.md)
+- [Form Builder API](docs/form-builder.md)
+- [Tabs & Groups](docs/tabs-groups.md)
+- [Custom Fields Integration](docs/custom-fields.md)
+- [Rendering to HTML](docs/rendering.md)
+- [Serializing to Array](docs/serialization.md)
+- [Validation & Attributes (Requests)](docs/validation.md)
+- [Advanced Examples](docs/examples.md)
 
 ## Contributing
 

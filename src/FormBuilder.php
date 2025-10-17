@@ -9,6 +9,7 @@ use JobMetric\CustomField\CustomField;
 use JobMetric\CustomField\CustomFieldBuilder;
 use JobMetric\Form\Tab\Tab;
 use JobMetric\Form\Tab\TabBuilder;
+use Throwable;
 
 class FormBuilder
 {
@@ -262,6 +263,7 @@ class FormBuilder
      * @param Closure<TabBuilder>|array $callable
      *
      * @return static
+     * @throws Throwable
      */
     public function tab(Closure|array $callable): static
     {
