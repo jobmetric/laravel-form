@@ -36,14 +36,14 @@ class Group
     }
 
     /**
-     * render the group as HTML
+     * Render the group as HTML
      *
      * @param array $values
      *
      * @return string
      * @throws Throwable
      */
-    public function render(array $values = []): string
+    public function toHtml(array $values = []): string
     {
         return view('form::group', [
             'field' => $this,

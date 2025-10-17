@@ -19,7 +19,7 @@
                     @endphp
                     @foreach($field->fields as $index => $fieldData)
                         @if($fieldData instanceof Group)
-                            {!! $fieldData->render($values) !!}
+                            {!! $fieldData->toHtml($values) !!}
                         @else
                             @php
                                 /**

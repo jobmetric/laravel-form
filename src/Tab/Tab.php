@@ -59,12 +59,12 @@ class Tab
     }
 
     /**
-     * render the tab link as HTML
+     * Render the tab link as HTML
      *
      * @return string
      * @throws Throwable
      */
-    public function renderLink(): string
+    public function toHtmlLink(): string
     {
         return view('form::tab-link', [
             'field' => $this,
@@ -72,14 +72,14 @@ class Tab
     }
 
     /**
-     * render the tab data as HTML
+     * Render the tab data as HTML
      *
      * @param array $values
      *
      * @return string
      * @throws Throwable
      */
-    public function renderData(array $values = []): string
+    public function toHtmlData(array $values = []): string
     {
         return view('form::tab-data', [
             'field' => $this,

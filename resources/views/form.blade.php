@@ -16,7 +16,7 @@
         @method($method)
     @endif
     @foreach($field->hiddenCustomField as $customField)
-        {!! $customField->render() !!}
+        {!! $customField->toHtml() !!}
     @endforeach
 
     @if(!empty($field->tabs))
@@ -31,7 +31,7 @@
                              */
                         @endphp
                         @if($tab->position == 'start')
-                            {!! $tab->renderLink() !!}
+                            {!! $tab->toHtmlLink() !!}
                         @endif
                     @endforeach
                 </div>
@@ -43,7 +43,7 @@
                              */
                         @endphp
                         @if($tab->position == 'end')
-                            {!! $tab->renderLink() !!}
+                            {!! $tab->toHtmlLink() !!}
                         @endif
                     @endforeach
                 </div>
@@ -55,7 +55,7 @@
                          * @var Tab $tab
                          */
                     @endphp
-                    {!! $tab->renderData($values) !!}
+                    {!! $tab->toHtmlData($values) !!}
                 @endforeach
             </div>
         </div>

@@ -150,14 +150,14 @@ class Form
     }
 
     /**
-     * render the form as HTML
+     * Render the form as HTML
      *
      * @param array $values
      *
      * @return string
      * @throws Throwable
      */
-    public function render(array $values = []): string
+    public function toHtml(array $values = []): string
     {
         return view('form::form', [
             'field' => $this,
