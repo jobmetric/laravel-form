@@ -36,6 +36,11 @@
             "JobMetric\\Form\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "JobMetric\\Form\\Tests\\": "tests/"
+        }
+    },
     "extra": {
         "laravel": {
             "providers": [
@@ -44,6 +49,10 @@
         }
     },
     "minimum-stability": "stable",
+    "require-dev": {
+        "phpunit/phpunit": "^9.6",
+        "orchestra/testbench": "^7.0"
+    },
     "support": {
         "issues": "https://github.com/jobmetric/laravel-form/issues",
         "forum": "https://twitter.com/jobmetric",
