@@ -50,4 +50,26 @@ class Group
             'values' => $values,
         ])->render();
     }
+
+    /**
+     * Convert group definition to array for API output
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        $customFields = array_map(function (CustomField $field) {
+            return [
+                'label' => $field->label ?? null,
+                'params' => $field->params ?? [],
+                'validation' => $field->validation ?? null,
+            ];
+        }, $this->customFields ?? []);
+
+        return [
+            'label' => $this->label,
+            'description' => $this->description,
+            'customFields' => $customFields,
+        ];
+    }
 }

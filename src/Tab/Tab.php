@@ -86,4 +86,42 @@ class Tab
             'values' => $values,
         ])->render();
     }
+
+    /**
+     * Convert tab definition to array for API output
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        $fields = [];
+
+        foreach ($this->fields ?? [] as $item) {
+            if ($item instanceof \JobMetric\Form\Group\Group) {
+                $fields[] = [
+                    'kind' => 'group',
+                    'data' => $item->toArray(),
+                ];
+            } else {
+                // assume CustomField instance
+                $fields[] = [
+                    'kind' => 'custom_field',
+                    'data' => [
+                        'label' => $item->label ?? null,
+                        'params' => $item->params ?? [],
+                        'validation' => $item->validation ?? null,
+                    ],
+                ];
+            }
+        }
+
+        return [
+            'id' => $this->id,
+            'label' => $this->label,
+            'description' => $this->description,
+            'position' => $this->position,
+            'selected' => $this->selected,
+            'fields' => $fields,
+        ];
+    }
 }

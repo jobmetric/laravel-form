@@ -123,22 +123,6 @@ class Form
     }
 
     /**
-     * render the form as HTML
-     *
-     * @param array $values
-     *
-     * @return string
-     * @throws Throwable
-     */
-    public function render(array $values = []): string
-    {
-        return view('form::form', [
-            'field' => $this,
-            'values' => $values,
-        ])->render();
-    }
-
-    /**
      * Get All Custom Fields
      *
      * @return array
@@ -163,5 +147,56 @@ class Form
         }
 
         return $customFields;
+    }
+
+    /**
+     * render the form as HTML
+     *
+     * @param array $values
+     *
+     * @return string
+     * @throws Throwable
+     */
+    public function render(array $values = []): string
+    {
+        return view('form::form', [
+            'field' => $this,
+            'values' => $values,
+        ])->render();
+    }
+
+    /**
+     * Convert form definition to array for API output
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        $hiddenCustomField = array_map(function (CustomField $field) {
+            return [
+                'label' => $field->label ?? null,
+                'params' => $field->params ?? [],
+                'validation' => $field->validation ?? null,
+            ];
+        }, $this->hiddenCustomField ?? []);
+
+        $tabs = array_map(function (Tab $tab) {
+            return $tab->toArray();
+        }, $this->tabs ?? []);
+
+        return [
+            'action' => $this->action,
+            'method' => $this->method,
+            'name' => $this->name,
+            'enctype' => $this->enctype,
+            'autocomplete' => $this->autocomplete,
+            'target' => $this->target,
+            'novalidate' => $this->novalidate,
+            'class' => $this->class,
+            'id' => $this->id,
+            'csrf' => $this->csrf,
+            'hiddenCustomField' => $hiddenCustomField,
+            'tabs' => $tabs,
+        ];
     }
 }
