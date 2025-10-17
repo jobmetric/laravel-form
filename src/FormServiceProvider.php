@@ -17,7 +17,6 @@ class FormServiceProvider extends PackageCoreServiceProvider
     public function configuration(PackageCore $package): void
     {
         $package->name('laravel-form')
-            ->hasTranslation()
             ->hasView();
     }
 }
