@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Support\Traits\Macroable;
 use InvalidArgumentException;
 use JobMetric\CustomField\CustomFieldBuilder;
+use JobMetric\Form\Group\Group;
 use JobMetric\Form\Group\GroupBuilder;
 use Throwable;
 
@@ -203,5 +204,27 @@ class TabBuilder
         }
 
         return new Tab($this->id, $this->label, $this->description, $this->position, $this->selected, $this->fields);
+    }
+
+    /**
+     * Get all custom fields inside this tab (direct or inside groups).
+     *
+     * @return array
+     */
+    public function getCustomFields(): array
+    {
+        $customFields = [];
+
+        foreach ($this->fields as $field) {
+            if ($field instanceof GroupBuilder) {
+                $customFields = array_merge($customFields, $field->getCustomFields());
+            } elseif ($field instanceof Group) {
+                $customFields = array_merge($customFields, $field->customFields);
+            } else {
+                $customFields[] = $field;
+            }
+        }
+
+        return $customFields;
     }
 }

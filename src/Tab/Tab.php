@@ -111,14 +111,22 @@ class Tab
                     'data' => $item->toArray(),
                 ];
             } else {
-                // assume CustomField instance
-                $fields[] = [
-                    'kind' => 'custom_field',
-                    'data' => [
+                // assume CustomField instance or any object with array-like public props
+                $data = null;
+
+                if (method_exists($item, 'toArray')) {
+                    $data = $item->toArray();
+                } else {
+                    $data = [
                         'label' => $item->label ?? null,
                         'params' => $item->params ?? [],
                         'validation' => $item->validation ?? null,
-                    ],
+                    ];
+                }
+
+                $fields[] = [
+                    'kind' => 'custom_field',
+                    'data' => $data,
                 ];
             }
         }
@@ -131,5 +139,25 @@ class Tab
             'selected' => $this->selected,
             'fields' => $fields,
         ];
+    }
+
+    /**
+     * Get all custom fields inside this tab (direct or inside groups).
+     *
+     * @return array
+     */
+    public function getCustomFields(): array
+    {
+        $customFields = [];
+
+        foreach ($this->fields as $field) {
+            if ($field instanceof Group) {
+                $customFields = array_merge($customFields, $field->customFields);
+            } else {
+                $customFields[] = $field;
+            }
+        }
+
+        return $customFields;
     }
 }
