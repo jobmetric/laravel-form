@@ -42,7 +42,6 @@ class FormTypeObjectRequestTest extends TestCase
         $form = $builder->build();
 
         $obj = new FakeTypeObject();
-        // Mimic HasFormType::form() persistence
         $obj->setTypeParam('form', ['article' => $form]);
 
         $rules = [];
@@ -56,4 +55,3 @@ class FormTypeObjectRequestTest extends TestCase
         $this->assertSame('Title', $attributes['title']);
     }
 }
-

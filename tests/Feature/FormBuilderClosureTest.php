@@ -54,7 +54,6 @@ class FormBuilderClosureTest extends TestCase
 
         $form = $builder->build();
 
-        // Verify array structure
         $arr = $form->toArray();
         $this->assertSame('/articles', $arr['action']);
         $this->assertSame('PATCH', $arr['method']);
@@ -78,10 +77,9 @@ class FormBuilderClosureTest extends TestCase
         $this->assertSame('tab-seo', $arr['tabs'][1]['id']);
         $this->assertSame('end', $arr['tabs'][1]['position']);
 
-        // Verify HTML render basic markers
         $html = $form->toHtml();
         $this->assertStringContainsString('action="/articles"', $html);
-        $this->assertStringContainsString('method="POST"', $html); // spoofed method for PATCH
+        $this->assertStringContainsString('method="POST"', $html);
         $this->assertStringContainsString('name="article-form"', $html);
         $this->assertStringContainsString('enctype="multipart/form-data"', $html);
         $this->assertStringContainsString('target="_blank"', $html);
@@ -92,4 +90,3 @@ class FormBuilderClosureTest extends TestCase
         $this->assertStringContainsString('href="#tab-seo"', $html);
     }
 }
-

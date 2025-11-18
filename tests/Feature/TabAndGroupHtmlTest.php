@@ -28,17 +28,14 @@ class TabAndGroupHtmlTest extends TestCase
 
         $html = $form->toHtml();
 
-        // Tab links present
         $this->assertStringContainsString('nav-link', $html);
         $this->assertStringContainsString('href="#tab-info"', $html);
 
-        // Active tab pane rendered
         $this->assertStringContainsString('id="tab-info"', $html);
         $this->assertStringContainsString('tab-pane', $html);
 
-        // Group section present
         $this->assertStringContainsString('data-label-colored="Gr"', $html);
         $this->assertStringContainsString('data-label-noncolored="oup Title"', $html);
-        $this->assertStringContainsString('alert alert-info', $html); // description wrapper
+        $this->assertStringContainsString('alert alert-info', $html);
     }
 }

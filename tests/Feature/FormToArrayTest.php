@@ -55,7 +55,6 @@ class FormToArrayTest extends TestCase
 
     public function test_tab_to_array_with_non_group_field_placeholder(): void
     {
-        // Using a generic object to simulate a custom field structure for array serialization
         $fakeField = (object) [
             'label' => 'Field A',
             'params' => ['name' => 'field_a'],
@@ -78,4 +77,3 @@ class FormToArrayTest extends TestCase
         $this->assertSame('string', $arr['fields'][0]['data']['validation']);
     }
 }
-

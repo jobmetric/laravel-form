@@ -37,7 +37,6 @@ class FormHtmlAttributesTest extends TestCase
         $this->assertTrue(
             str_contains($html, 'method="PUT"') || str_contains($html, 'method="POST"')
         );
-        // method spoof should exist for PUT
         $this->assertTrue(
             str_contains($html, 'name="_method"') && str_contains($html, 'value="PUT"')
         );
@@ -52,4 +51,3 @@ class FormHtmlAttributesTest extends TestCase
         $this->assertStringContainsString('id="form-id"', $html);
     }
 }
-
