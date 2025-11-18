@@ -92,4 +92,14 @@ class GroupBuilder
 
         return new Group($this->label, $this->description, $this->customFields);
     }
+
+    /**
+     * Get all custom fields added to this group.
+     *
+     * @return CustomField[]
+     */
+    public function getCustomFields(): array
+    {
+        return $this->customFields;
+    }
 }
