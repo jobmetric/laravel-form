@@ -125,24 +125,20 @@ class Form
     /**
      * Get All Custom Fields
      *
+     * @param bool $includeHidden
+     *
      * @return CustomField[]
      */
-    public function getAllCustomFields(): array
+    public function getAllCustomFields(bool $includeHidden = true): array
     {
         $customFields = [];
 
-        foreach ($this->tabs as $tab) {
-            foreach ($tab->fields as $field) {
-                if ($field instanceof Group) {
-                    foreach ($field->customFields as $groupCustomField) {
-                        $customFields[] = $groupCustomField;
-                    }
-                }
+        if ($includeHidden) {
+            $customFields = array_merge($customFields, $this->hiddenCustomField);
+        }
 
-                if ($field instanceof CustomField) {
-                    $customFields[] = $field;
-                }
-            }
+        foreach ($this->tabs as $tab) {
+            $customFields = array_merge($customFields, $tab->getCustomFields());
         }
 
         return $customFields;
@@ -172,11 +168,7 @@ class Form
     public function toArray(): array
     {
         $hiddenCustomField = array_map(function (CustomField $field) {
-            return [
-                'label' => $field->label ?? null,
-                'params' => $field->params ?? [],
-                'validation' => $field->validation ?? null,
-            ];
+            return $field->toArray();
         }, $this->hiddenCustomField ?? []);
 
         $tabs = array_map(function (Tab $tab) {

@@ -322,4 +322,28 @@ class FormBuilder
             $this->tabs
         );
     }
+
+    /**
+     * Collect all custom fields across hidden fields and tabs/groups.
+     *
+     * @param bool $includeHidden
+     *
+     * @return CustomField[]
+     */
+    public function getAllCustomFields(bool $includeHidden = true): array
+    {
+        $customFields = [];
+
+        if ($includeHidden) {
+            $customFields = array_merge($customFields, $this->hiddenCustomField);
+        }
+
+        foreach ($this->tabs as $tab) {
+            if ($tab instanceof Tab) {
+                $customFields = array_merge($customFields, $tab->getCustomFields());
+            }
+        }
+
+        return $customFields;
+    }
 }
