@@ -16,7 +16,11 @@
         @method($method)
     @endif
     @foreach($field->hiddenCustomField as $customField)
-        {!! $customField->toHtml() !!}
+        @php
+            $renderedHiddenField = $customField->toHtml();
+            $hiddenBody = is_array($renderedHiddenField) ? ($renderedHiddenField['body'] ?? '') : $renderedHiddenField;
+        @endphp
+        {!! $hiddenBody !!}
     @endforeach
 
     @if(!empty($field->tabs))

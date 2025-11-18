@@ -21,7 +21,9 @@
                 $classParent = '';
             }
             $value = $values[$customField->params['name']] ?? null;
+            $renderedCustomField = $customField->toHtml($value, classParent: $classParent, hasErrorTagForm: true);
+            $customFieldBody = is_array($renderedCustomField) ? ($renderedCustomField['body'] ?? '') : $renderedCustomField;
         @endphp
-        {!! $customField->toHtml($value, classParent: $classParent, hasErrorTagForm: true) !!}
+        {!! $customFieldBody !!}
     @endforeach
 </div>

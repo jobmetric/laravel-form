@@ -30,8 +30,10 @@
                                     $classParent = '';
                                 }
                                 $value = $values[$fieldData->params['name']] ?? null;
+                                $renderedCustomField = $fieldData->toHtml($value, classParent: $classParent, hasErrorTagForm: true);
+                                $customFieldBody = is_array($renderedCustomField) ? ($renderedCustomField['body'] ?? '') : $renderedCustomField;
                             @endphp
-                            {!! $fieldData->toHtml($value, classParent: $classParent, hasErrorTagForm: true) !!}
+                            {!! $customFieldBody !!}
                         @endif
                     @endforeach
                 </div>
