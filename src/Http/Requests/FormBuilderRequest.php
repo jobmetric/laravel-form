@@ -149,4 +149,54 @@ class FormBuilderRequest extends FormRequest
 
         return $attributes;
     }
+
+    /**
+     * Build the validation messages array from CustomField definitions.
+     *
+     * Looks for a messages map on each field (either `$customField->messages`
+     * or `$customField->params['messages']`). Keys may be either rule names
+     * (e.g. `required`) which will be prefixed with the field name, or full
+     * keys already in the `field.rule` format.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        $messages = [];
+
+        $form = $this->ensureForm();
+
+        foreach ($form->getAllCustomFields($this->includeHiddenFields) as $customField) {
+            $name = $customField->params['name'] ?? null;
+
+            if (! $name) {
+                continue;
+            }
+
+            $fieldMessages = $customField->messages ?? ($customField->params['messages'] ?? null);
+
+            if (is_array($fieldMessages)) {
+                foreach ($fieldMessages as $key => $value) {
+                    if (! is_string($value)) {
+                        continue;
+                    }
+
+                    if (! is_string($key)) {
+                        continue;
+                    }
+
+                    $keyStr = $key;
+
+                    // If key already starts with the field name, assume it's a fully-qualified
+                    // message key (e.g. "field.rule" or "items.*.field.rule").
+                    // Otherwise, scope the rule (and any variants like "min.string") to this field.
+                    $fullKey = str_starts_with($keyStr, $name . '.') ? $keyStr : $name . '.' . $keyStr;
+
+                    $messages[$fullKey] = $value;
+                }
+            }
+        }
+
+        return $messages;
+    }
 }
