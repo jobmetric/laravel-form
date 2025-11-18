@@ -49,8 +49,14 @@ class Tab
      */
     public array $fields = [];
 
-    public function __construct(string $id, string $label, string $description = null, string $position = 'start', bool $selected = false, array $fields = [])
-    {
+    public function __construct(
+        string $id,
+        string $label,
+        string $description = null,
+        string $position = 'start',
+        bool $selected = false,
+        array $fields = []
+    ) {
         $this->id = $id;
         $this->label = $label;
         $this->description = $description;
@@ -83,7 +89,7 @@ class Tab
     public function toHtmlData(array $values = []): string
     {
         return view('form::tab-data', [
-            'field' => $this,
+            'field'  => $this,
             'values' => $values,
         ])->render();
     }
@@ -110,16 +116,18 @@ class Tab
                     'kind' => 'group',
                     'data' => $item->toArray(),
                 ];
-            } else {
+            }
+            else {
                 // assume CustomField instance or any object with array-like public props
                 $data = null;
 
                 if (method_exists($item, 'toArray')) {
                     $data = $item->toArray();
-                } else {
+                }
+                else {
                     $data = [
-                        'label' => $item->label ?? null,
-                        'params' => $item->params ?? [],
+                        'label'      => $item->label ?? null,
+                        'params'     => $item->params ?? [],
                         'validation' => $item->validation ?? null,
                     ];
                 }
@@ -132,12 +140,12 @@ class Tab
         }
 
         return [
-            'id' => $this->id,
-            'label' => $this->label,
+            'id'          => $this->id,
+            'label'       => $this->label,
             'description' => $this->description,
-            'position' => $this->position,
-            'selected' => $this->selected,
-            'fields' => $fields,
+            'position'    => $this->position,
+            'selected'    => $this->selected,
+            'fields'      => $fields,
         ];
     }
 
@@ -153,7 +161,8 @@ class Tab
         foreach ($this->fields as $field) {
             if ($field instanceof Group) {
                 $customFields = array_merge($customFields, $field->customFields);
-            } else {
+            }
+            else {
                 $customFields[] = $field;
             }
         }

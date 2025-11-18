@@ -46,7 +46,7 @@ class Group
     public function toHtml(array $values = []): string
     {
         return view('form::group', [
-            'field' => $this,
+            'field'  => $this,
             'values' => $values,
         ])->render();
     }
@@ -59,6 +59,7 @@ class Group
      *     description: string|null,
      *     customFields: array<int, array{label: mixed, params: array, validation: mixed}>
      * }
+     * @throws Throwable
      */
     public function toArray(): array
     {
@@ -67,8 +68,8 @@ class Group
         }, $this->customFields ?? []);
 
         return [
-            'label' => $this->label,
-            'description' => $this->description,
+            'label'        => $this->label,
+            'description'  => $this->description,
             'customFields' => $customFields,
         ];
     }

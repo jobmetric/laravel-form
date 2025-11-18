@@ -4,7 +4,6 @@ namespace JobMetric\Form\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use InvalidArgumentException;
-use JobMetric\CustomField\CustomField;
 use JobMetric\Form\Form;
 use JobMetric\Form\FormBuilder;
 
@@ -44,7 +43,7 @@ class FormBuilderRequest extends FormRequest
      * FormBuilderRequest constructor.
      *
      * @param FormBuilder $formBuilder
-     * @param bool        $includeHiddenFields
+     * @param bool $includeHiddenFields
      */
     public function __construct(FormBuilder $formBuilder, bool $includeHiddenFields = true)
     {
@@ -86,16 +85,14 @@ class FormBuilderRequest extends FormRequest
     /**
      * Ensure that a Form instance is available, built from the FormBuilder.
      *
+     * @return Form
      * @throws InvalidArgumentException
      *
-     * @return Form
      */
     protected function ensureForm(): Form
     {
         if (! $this->formBuilder) {
-            throw new InvalidArgumentException(
-                'FormBuilder instance is required. Call setFormBuilder() before validation.'
-            );
+            throw new InvalidArgumentException('FormBuilder instance is required. Call setFormBuilder() before validation.');
         }
 
         if (! $this->builtForm) {
@@ -117,7 +114,6 @@ class FormBuilderRequest extends FormRequest
         $form = $this->ensureForm();
 
         foreach ($form->getAllCustomFields($this->includeHiddenFields) as $customField) {
-            /** @var CustomField $customField */
             $name = $customField->params['name'] ?? null;
 
             if (! $name) {
@@ -142,7 +138,6 @@ class FormBuilderRequest extends FormRequest
         $form = $this->ensureForm();
 
         foreach ($form->getAllCustomFields($this->includeHiddenFields) as $customField) {
-            /** @var CustomField $customField */
             $name = $customField->params['name'] ?? null;
 
             if (! $name) {
