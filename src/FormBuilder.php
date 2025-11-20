@@ -150,7 +150,7 @@ class FormBuilder
      */
     public function enctype(string $enctype): static
     {
-        if (!in_array($enctype, ['application/x-www-form-urlencoded', 'multipart/form-data', 'text/plain'])) {
+        if (! in_array($enctype, ['application/x-www-form-urlencoded', 'multipart/form-data', 'text/plain'])) {
             throw new InvalidArgumentException('Invalid enctype');
         }
 
@@ -180,7 +180,7 @@ class FormBuilder
      */
     public function target(string $target): static
     {
-        if (!in_array($target, ['_self', '_blank', '_parent', '_top'])) {
+        if (! in_array($target, ['_self', '_blank', '_parent', '_top'])) {
             throw new InvalidArgumentException('Invalid target');
         }
 
@@ -271,7 +271,8 @@ class FormBuilder
             $callable($builder = new TabBuilder);
 
             $this->tabs[] = $builder->build();
-        } else {
+        }
+        else {
             foreach ($callable as $tab) {
                 $builder = new TabBuilder;
 
@@ -307,20 +308,7 @@ class FormBuilder
      */
     public function build(): Form
     {
-        return new Form(
-            $this->action,
-            $this->method,
-            $this->name,
-            $this->enctype,
-            $this->autocomplete,
-            $this->target,
-            $this->novalidate,
-            $this->class,
-            $this->id,
-            $this->csrf,
-            $this->hiddenCustomField,
-            $this->tabs
-        );
+        return new Form($this->action, $this->method, $this->name, $this->enctype, $this->autocomplete, $this->target, $this->novalidate, $this->class, $this->id, $this->csrf, $this->hiddenCustomField, $this->tabs);
     }
 
     /**

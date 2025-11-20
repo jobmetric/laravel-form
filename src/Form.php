@@ -3,7 +3,6 @@
 namespace JobMetric\Form;
 
 use JobMetric\CustomField\CustomField;
-use JobMetric\Form\Group\Group;
 use JobMetric\Form\Tab\Tab;
 use Throwable;
 
@@ -95,19 +94,18 @@ class Form
 
     public function __construct(
         ?string $action = null,
-        string  $method = 'POST',
-        string  $name = '',
-        string  $enctype = 'application/x-www-form-urlencoded',
-        bool    $autocomplete = false,
-        string  $target = '_self',
-        bool    $novalidate = false,
-        string  $class = 'form d-flex flex-column flex-lg-row',
-        string  $id = 'form',
-        bool    $csrf = true,
-        array   $hiddenCustomField = [],
-        array   $tabs = []
-    )
-    {
+        string $method = 'POST',
+        string $name = '',
+        string $enctype = 'application/x-www-form-urlencoded',
+        bool $autocomplete = false,
+        string $target = '_self',
+        bool $novalidate = false,
+        string $class = 'form d-flex flex-column flex-lg-row',
+        string $id = 'form',
+        bool $csrf = true,
+        array $hiddenCustomField = [],
+        array $tabs = []
+    ) {
         $this->action = $action;
         $this->method = $method;
         $this->name = $name;
@@ -155,7 +153,7 @@ class Form
     public function toHtml(array $values = []): string
     {
         return view('form::form', [
-            'field' => $this,
+            'field'  => $this,
             'values' => $values,
         ])->render();
     }
@@ -164,6 +162,7 @@ class Form
      * Convert form definition to array for API output
      *
      * @return array
+     * @throws Throwable
      */
     public function toArray(): array
     {
@@ -176,18 +175,18 @@ class Form
         }, $this->tabs ?? []);
 
         return [
-            'action' => $this->action,
-            'method' => $this->method,
-            'name' => $this->name,
-            'enctype' => $this->enctype,
-            'autocomplete' => $this->autocomplete,
-            'target' => $this->target,
-            'novalidate' => $this->novalidate,
-            'class' => $this->class,
-            'id' => $this->id,
-            'csrf' => $this->csrf,
+            'action'            => $this->action,
+            'method'            => $this->method,
+            'name'              => $this->name,
+            'enctype'           => $this->enctype,
+            'autocomplete'      => $this->autocomplete,
+            'target'            => $this->target,
+            'novalidate'        => $this->novalidate,
+            'class'             => $this->class,
+            'id'                => $this->id,
+            'csrf'              => $this->csrf,
             'hiddenCustomField' => $hiddenCustomField,
-            'tabs' => $tabs,
+            'tabs'              => $tabs,
         ];
     }
 }
