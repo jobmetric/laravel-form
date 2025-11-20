@@ -83,6 +83,11 @@ class FormBuilderRequest extends FormRequest
         return $this;
     }
 
+    public function authorize(): bool
+    {
+        return true;
+    }
+
     /**
      * Ensure that a Form instance is available, built from the FormBuilder.
      *
