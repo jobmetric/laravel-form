@@ -1,14 +1,13 @@
-name: Telegram Open Pull Request Notifications
+name: Telegram Issue Reply Notifications
 
 on:
-  pull_request_target:
+  issue_comment:
     types:
-      - opened
-      - reopened
+      - created
 
 jobs:
-  notify-pr:
-    uses: jobmetric/github-notify/.github/workflows/telegram-open-pull-request-notify.yml@master
+  notify-reply:
+    uses: jobmetric/github-notify/.github/workflows/telegram-issue-reply-notify.yml@master
     with:
       date_format: jalali
       timezone: Asia/Tehran
